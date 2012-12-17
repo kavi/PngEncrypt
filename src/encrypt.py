@@ -3,13 +3,8 @@ from bitstring import BitArray, BitStream
 import hashlib
 import Image
 import sys
+from util import getKey, getImageData
 
-def getKey(pw):
-  sha = hashlib.sha1()
-  sha.update(pw)
-  key = BitArray(bytes=sha.digest())
-#  print key
-  return key
 
 def getText(file):
   text = open(file, "rb").read()

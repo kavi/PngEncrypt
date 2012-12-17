@@ -3,19 +3,8 @@ from bitstring import BitArray, BitStream
 import Image
 import sys
 import hashlib
+from util import getKey, getImageData
 
-
-def getKey(pw):
-  sha = hashlib.sha1()
-  sha.update(pw)
-  key = BitArray(bytes=sha.digest())
-  return key
-
-def getImageData(image):
-  img = Image.open(image)
-  data = img.getdata()
-  #print len(data)
-  return data
 
 def decrypt(data, key):
   # TODO - assert RGB/RGBA
@@ -32,7 +21,7 @@ def decrypt(data, key):
     # Begin if
     if counter < lbits.len:
       lbits[counter] = q
-      # print "Decrypted: " + str(q) + ". Image: " + str(i[0])
+      # print "Decrypted: " + str(q) + ". Image: " + str(i[0]) 
     elif counter < lbits.int + 32:
       bits.append(1)
       bits[c] = q
@@ -46,7 +35,7 @@ def decrypt(data, key):
 def main(argv):
   pw = argv[0]
   inputfile = argv[1]
-# print "Password: " + pw
+# print "password: " + pw
 #  print "Input image: " + inputfile
 
   key = getKey(pw)
